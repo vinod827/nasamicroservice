@@ -73,8 +73,14 @@ public class NasaController {
 		System.out.println("address: "+address);
 		System.out.println("apiKey: "+apiKey);
 		
-		ResponseEntity<GoogleResponseBean> responseEntity = new RestTemplate().getForEntity(googleUrl, GoogleResponseBean.class, uriVariables);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ResponseEntity<GoogleResponseBean> responseEntity = restTemplate.getForEntity(googleUrl, GoogleResponseBean.class, uriVariables);
+		System.out.println("Google responseEntity->>>>>>>>: "+responseEntity);
+		
 		GoogleResponseBean response = responseEntity.getBody();
+		
 		
 		System.out.println("Google response: "+response);
 		

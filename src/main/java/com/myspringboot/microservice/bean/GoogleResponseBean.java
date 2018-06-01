@@ -3,22 +3,47 @@
  */
 package com.myspringboot.microservice.bean;
 
+import java.util.List;
+
 /**
  * @author 30069
  *
  */
 public class GoogleResponseBean {
 
-	private String results;
+	private List results;
 	private String longName;
 	private String shortName;
 	
-	public String getResults() {
+	
+	
+	public GoogleResponseBean(List results, String longName, String shortName) {
+		super();
+		this.results = results;
+		this.longName = longName;
+		this.shortName = shortName;
+	}
+
+
+
+	public GoogleResponseBean() {
+		
+	}
+	
+
+	
+	public List getResults() {
 		return results;
 	}
-	public void setResults(String results) {
+
+
+
+	public void setResults(List results) {
 		this.results = results;
 	}
+
+
+
 	public String getLongName() {
 		return longName;
 	}
@@ -31,12 +56,6 @@ public class GoogleResponseBean {
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
 	}
-	public GoogleResponseBean(String results, String longName, String shortName) {
-		super();
-		this.results = results;
-		this.longName = longName;
-		this.shortName = shortName;
-	}
-	
+
 	
 }
