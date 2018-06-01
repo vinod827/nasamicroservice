@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.myspringboot.microservice.bean.GoogleResponseBean;
 import com.myspringboot.microservice.bean.NasaResponseBean;
 
 /**
@@ -35,7 +36,7 @@ public class NasaController {
 
 	@GetMapping("/get-news/country/{country}/apiKey/{apiKey}")
 	public NasaResponseBean getNewsFromNasa(@PathVariable String country, @PathVariable String apiKey) {
-		logger.info("Entering convertCurrency@CurrencyConversionController");
+		logger.info("Entering getNewsFromNasa@NasaController");
 		String nasaServiceUrl = "https://newsapi.org/v2/top-headlines?country="+country+"&apiKey="+apiKey;
 		
 		Map<String, String> uriVariables = new HashMap<>();
@@ -51,7 +52,33 @@ public class NasaController {
 		
 		System.out.println("response: "+response);
 		
-		logger.info("Exiting convertCurrency@CurrencyConversionController");
+		logger.info("Exiting getNewsFromNasa@NasaController");
 		return new NasaResponseBean(response.getAuthor(), response.getTitle(), response.getDescription(), response.getUrl());
+	}
+	
+
+	@GetMapping("/googleapi/search/address/{address}/apiKey/{apiKey}")
+	public GoogleResponseBean getAddressfromGoogle(@PathVariable String address, @PathVariable String apiKey) {
+		logger.info("Entering getAddressfromGoogle@NasaController");
+		String googleUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key="+apiKey;
+		
+				//String googleUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=Vatika%20Tower&key=AIzaSyDO19jHY9aqcMVHR0SAp3JWDY_gFEXo74E
+				
+				
+		Map<String, String> uriVariables = new HashMap<>();
+		uriVariables.put("address", address);
+		uriVariables.put("apiKey", apiKey);
+		
+		System.out.println("googleUrl service url: "+googleUrl);
+		System.out.println("address: "+address);
+		System.out.println("apiKey: "+apiKey);
+		
+		ResponseEntity<GoogleResponseBean> responseEntity = new RestTemplate().getForEntity(googleUrl, GoogleResponseBean.class, uriVariables);
+		GoogleResponseBean response = responseEntity.getBody();
+		
+		System.out.println("Google response: "+response);
+		
+		logger.info("Exiting getAddressfromGoogle@NasaController");
+		return new GoogleResponseBean(response.getResults(), null, null);
 	}
 }
