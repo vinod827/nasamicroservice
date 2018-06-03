@@ -40,7 +40,7 @@ public class NasaController {
 	private Logger logger = LoggerFactory.getLogger(NasaController.class);
 	private final String USER_AGENT = "Mozilla/5.0"; 
 	
-	@RequestMapping(path="/", method = RequestMethod.GET)
+	@RequestMapping(path="/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public String defaultRoute() {
 		return "Hello NASA Microservices";
 	}
