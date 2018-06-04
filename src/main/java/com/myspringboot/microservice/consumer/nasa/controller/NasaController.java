@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.myspringboot.microservice.bean.GoogleResponseBean;
 import com.myspringboot.microservice.bean.NasaResponseBean;
+import com.myspringboot.microservice.bean.ResponseBean;
 
 /**
  * @author daddy
@@ -45,6 +46,28 @@ public class NasaController {
 		return "Hello NASA Microservices";
 	}
 
+	
+	@GetMapping("/get-news-nasa/country/{country}/apiKey/{apiKey}")
+	public String getNews(@PathVariable String country, @PathVariable String apiKey) {
+		logger.info("Entering getNews@NasaController");
+		String nasaServiceUrl = "https://newsapi.org/v2/top-headlines?country="+country+"&apiKey="+apiKey;
+		
+		Map<String, String> uriVariables = new HashMap<>();
+		uriVariables.put("country", country);
+		uriVariables.put("apiKey", apiKey);
+		
+		logger.info("nasa service url: "+nasaServiceUrl+", country: "+country+", apikey: "+apiKey);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseBean responseBean = restTemplate.getForObject(nasaServiceUrl, ResponseBean.class);
+		
+		logger.info("responseBean*************: "+responseBean.toString());
+		
+		logger.info("Exiting getNews@NasaController");
+		return responseBean.toString();
+	}
+	
+	
 	@GetMapping("/get-news/country/{country}/apiKey/{apiKey}")
 	public NasaResponseBean getNewsFromNasa(@PathVariable String country, @PathVariable String apiKey) {
 		logger.info("Entering getNewsFromNasa@NasaController");
