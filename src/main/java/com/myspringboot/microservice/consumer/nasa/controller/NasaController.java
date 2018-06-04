@@ -59,7 +59,7 @@ public class NasaController {
 		logger.info("nasa service url: "+nasaServiceUrl+", country: "+country+", apikey: "+apiKey);
 
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseBean responseBean = restTemplate.getForObject(nasaServiceUrl, ResponseBean.class);
+		ResponseBean responseBean = restTemplate.getForObject(nasaServiceUrl, ResponseBean.class, uriVariables);
 		
 		logger.info("responseBean*************: "+responseBean.toString());
 		
