@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author 30069
  *
  */
-public class ResponseBean {
+public class Response {
 
 	@JsonProperty
 	private RestResponse restResponse;
@@ -22,7 +22,7 @@ public class ResponseBean {
 		this.restResponse = restResponse;
 	}
 
-	public ResponseBean(RestResponse restResponse) {
+	public Response(RestResponse restResponse) {
 		super();
 		this.restResponse = restResponse;
 	}
@@ -32,7 +32,7 @@ public class ResponseBean {
 		return "ResponseBean [restResponse=" + restResponse + "]";
 	}
 	
-	public ResponseBean() {
+	public Response() {
 		
 	}
 }

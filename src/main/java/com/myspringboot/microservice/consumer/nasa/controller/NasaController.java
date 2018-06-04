@@ -29,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.myspringboot.microservice.bean.GoogleResponseBean;
 import com.myspringboot.microservice.bean.NasaResponseBean;
-import com.myspringboot.microservice.bean.ResponseBean;
+import com.myspringboot.microservice.bean.Response;
 
 /**
  * @author daddy
@@ -47,24 +47,26 @@ public class NasaController {
 	}
 
 	
-	@GetMapping("/get-news-nasa/country/{country}/apiKey/{apiKey}")
-	public String getNews(@PathVariable String country, @PathVariable String apiKey) {
+	@GetMapping("/get-news-nasa")
+	public String getNews() {
 		logger.info("Entering getNews@NasaController");
-		String nasaServiceUrl = "https://newsapi.org/v2/top-headlines?country="+country+"&apiKey="+apiKey;
+		//String nasaServiceUrl = "http://services.groupkt.com/country/get/iso2code/IN";
 		
-		Map<String, String> uriVariables = new HashMap<>();
+/*		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("country", country);
-		uriVariables.put("apiKey", apiKey);
+		uriVariables.put("apiKey", apiKey);*/
 		
-		logger.info("nasa service url: "+nasaServiceUrl+", country: "+country+", apikey: "+apiKey);
+		//logger.info("nasa service url: "+nasaServiceUrl+", country: "+country+", apikey: "+apiKey);
+		
+
 
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseBean responseBean = restTemplate.getForObject(nasaServiceUrl, ResponseBean.class, uriVariables);
+		Response response = restTemplate.getForObject("http://services.groupkt.com/country/get/iso2code/IN", Response.class);
 		
-		logger.info("responseBean*************: "+responseBean.toString());
+		logger.info("*******response*************: "+response);
 		
 		logger.info("Exiting getNews@NasaController");
-		return responseBean.toString();
+		return response.toString();
 	}
 	
 	
