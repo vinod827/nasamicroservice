@@ -1,0 +1,6 @@
+applications:
+- name: nasa-service-jenkins
+  memory: 1024M
+  buildpack: java_buildpack
+  routes:
+  - route: nasaservice.cfapps.io
